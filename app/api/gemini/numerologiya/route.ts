@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
 import { getGeminiModel, PROMPTS } from "@/lib/gemini";
 import { calcLifePathNumber } from "@/lib/gemini-data";
 
 export async function POST(req: NextRequest) {
+  const session = await auth();
+  if (!session?.user) {
+    return NextResponse.json({ error: "Giriş tələb olunur" }, { status: 401 });
+  }
+
   const { ad, tarix } = await req.json();
   if (!ad || !tarix) return NextResponse.json({ error: "Ad və tarix tələb olunur" }, { status: 400 });
 

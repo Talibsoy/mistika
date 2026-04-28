@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
 import { getGeminiModel, PROMPTS } from "@/lib/gemini";
 
 export async function POST(req: NextRequest) {
+  const session = await auth();
+  if (!session?.user) {
+    return NextResponse.json({ error: "Giriş tələb olunur" }, { status: 401 });
+  }
+
   const { cards, sual } = await req.json();
   if (!cards || cards.length !== 3) return NextResponse.json({ error: "3 kart seçilməlidir" }, { status: 400 });
 
