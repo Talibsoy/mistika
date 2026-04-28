@@ -11,32 +11,37 @@ model User {
   id           String        @id @default(cuid())
   email        String        @unique
   name         String?
-  passwordHash String?
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  passwordHash String?       @map("password_hash")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
   subscription Subscription?
   readings     Reading[]
+
+  @@map("users")
 }
 
 model Subscription {
   id               String    @id @default(cuid())
-  userId           String    @unique
+  userId           String    @unique @map("user_id")
   user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   status           String    @default("trialing")
-  trialEnd         DateTime?
-  currentPeriodEnd DateTime?
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  trialEnd         DateTime? @map("trial_end")
+  currentPeriodEnd DateTime? @map("current_period_end")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+
+  @@map("subscriptions")
 }
 
 model Reading {
   id        String   @id @default(cuid())
-  userId    String
+  userId    String   @map("user_id")
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   type      String
   input     String
   result    String   @db.Text
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) @map("created_at")
 
   @@index([userId, createdAt])
+  @@map("readings")
 }

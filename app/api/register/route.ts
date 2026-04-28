@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin as supabase } from "@/lib/supabase";
 
 export async function POST(req: NextRequest) {
   try {
@@ -29,15 +29,21 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (error || !user) {
-      return NextResponse.json({ error: "Qeydiyyat xətası" }, { status: 500 });
+      console.error("User insert error:", error);
+      return NextResponse.json({ error: `Qeydiyyat xətası: ${error?.message || "bilinmir"}` }, { status: 500 });
     }
 
-    await supabase
+    const { error: subError } = await supabase
       .from("subscriptions")
       .insert({ user_id: user.id, status: "trialing", trial_end: trialEnd });
 
+    if (subError) {
+      console.error("Subscription insert error:", subError);
+    }
+
     return NextResponse.json({ success: true, userId: user.id });
-  } catch {
-    return NextResponse.json({ error: "Server xətası" }, { status: 500 });
+  } catch (err: any) {
+    console.error("Register catch error:", err);
+    return NextResponse.json({ error: `Server xətası: ${err?.message || "bilinmir"}` }, { status: 500 });
   }
 }
