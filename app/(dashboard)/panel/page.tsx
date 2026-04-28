@@ -37,9 +37,7 @@ export default function PanelPage() {
         ))}
       </div>
 
-      <div style={{ marginTop: 40, background: "rgba(212,175,55,0.06)", border: "1px solid rgba(212,175,55,0.2)", borderRadius: 12, padding: "14px 20px" }}>
-        <span style={{ color: "#d4af37", fontSize: 13 }}>⚠ Demo rejim — Gemini API key əlavə etdikdən sonra AI yorumlar işləyəcək</span>
-      </div>
+
     </div>
   );
 }
