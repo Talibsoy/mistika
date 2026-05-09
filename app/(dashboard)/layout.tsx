@@ -34,9 +34,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex" }}>
+    <div className="dashboard-layout" style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex" }}>
       <DashboardSidebar user={user} trialDaysLeft={trialDaysLeft} subStatus={subStatus} />
-      <main style={{ flex: 1, padding: "32px 24px", overflowY: "auto" }}>
+      <main className="dashboard-main" style={{ flex: 1, padding: "32px 24px", overflowY: "auto" }}>
         {children}
       </main>
     </div>

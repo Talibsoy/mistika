@@ -25,7 +25,7 @@ export default function YuxuPage() {
 
   return (
     <div style={{ maxWidth: 700, margin: "0 auto" }}>
-      <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 32, fontWeight: 700, color: "#f5f5f5", marginBottom: 8 }}>🌙 Yuxu Yozma</h1>
+      <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(22px, 5vw, 32px)", fontWeight: 700, color: "#f5f5f5", marginBottom: 8 }}>🌙 Yuxu Yozma</h1>
       <p style={{ color: "#888", marginBottom: 32 }}>Gördüyün yuxunu ətraflı şəkildə yaz, dərin mistik analiz al</p>
 
       <form onSubmit={handleSubmit}>

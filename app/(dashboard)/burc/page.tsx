@@ -34,7 +34,7 @@ export default function BurcPage() {
 
   return (
     <div style={{ maxWidth: 700, margin: "0 auto" }}>
-      <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 32, fontWeight: 700, color: "#f5f5f5", marginBottom: 8 }}>⭐ Bürc Proqnozu</h1>
+      <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(22px, 5vw, 32px)", fontWeight: 700, color: "#f5f5f5", marginBottom: 8 }}>⭐ Bürc Proqnozu</h1>
       <p style={{ color: "#888", marginBottom: 32 }}>Bürcünü seç, dövrü müəyyənləşdir və ulduzların mesajını al</p>
 
       {/* Period tabs */}

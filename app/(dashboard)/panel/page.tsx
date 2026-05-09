@@ -11,7 +11,7 @@ const cards = [
 export default function PanelPage() {
   return (
     <div style={{ maxWidth: 900, margin: "0 auto" }}>
-      <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 32, fontWeight: 700, color: "#f5f5f5", marginBottom: 8 }}>
+      <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(22px, 5vw, 32px)", fontWeight: 700, color: "#f5f5f5", marginBottom: 8 }}>
         Xoş gəldin ✦
       </h1>
       <p style={{ color: "#888", marginBottom: 40 }}>Hansı mistik yolculuğa başlamaq istəyirsən?</p>
