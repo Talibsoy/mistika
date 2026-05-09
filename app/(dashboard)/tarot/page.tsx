@@ -18,7 +18,7 @@ export default function TarotPage() {
   );
 
   function handleMouseEnter(name: string) {
-    clearTimeout(hideTimer.current);
+    if (hideTimer.current) clearTimeout(hideTimer.current);
     setHoveredCard(name);
   }
 
