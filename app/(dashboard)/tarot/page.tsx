@@ -12,7 +12,7 @@ export default function TarotPage() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
-  const hideTimer = useRef<ReturnType<typeof setTimeout>>();
+  const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [shuffled] = useState(() =>
     [...TAROT_CARDS].sort(() => Math.random() - 0.5).slice(0, 12)
   );
