@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TAROT_CARDS } from "@/lib/gemini-data";
 import ResultCard from "@/components/mystical/ResultCard";
@@ -12,9 +12,19 @@ export default function TarotPage() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const hideTimer = useRef<ReturnType<typeof setTimeout>>();
   const [shuffled] = useState(() =>
     [...TAROT_CARDS].sort(() => Math.random() - 0.5).slice(0, 12)
   );
+
+  function handleMouseEnter(name: string) {
+    clearTimeout(hideTimer.current);
+    setHoveredCard(name);
+  }
+
+  function handleMouseLeave() {
+    hideTimer.current = setTimeout(() => setHoveredCard(null), 220);
+  }
 
   function toggleCard(name: string) {
     if (selected.includes(name)) {
@@ -104,8 +114,8 @@ export default function TarotPage() {
             <motion.button
               key={card.name}
               onClick={() => toggleCard(card.name)}
-              onMouseEnter={() => setHoveredCard(card.name)}
-              onMouseLeave={() => setHoveredCard(null)}
+              onMouseEnter={() => handleMouseEnter(card.name)}
+              onMouseLeave={handleMouseLeave}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
               style={{
