@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 export default function Navbar() {
@@ -8,9 +9,10 @@ export default function Navbar() {
   return (
     <nav style={{ position: "relative", zIndex: 50, borderBottom: "1px solid #1a1a1a" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 64 }}>
-        <Link href="/" style={{ textDecoration: "none" }}>
+        <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 10 }}>
+          <Image src="/logo.svg" alt="Mistik logo" width={38} height={38} style={{ borderRadius: "50%" }} />
           <span style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, fontWeight: 700, color: "#d4af37" }}>
-            ✦ Mistik
+            Mistik
           </span>
         </Link>
 

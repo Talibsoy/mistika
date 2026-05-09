@@ -5,6 +5,10 @@ export const metadata: Metadata = {
   title: "Mistik — Tarot, Yuxu, Bürc & Numerologiya",
   description: "Azərbaycan dilində tarot fal, yuxu yozma, bürc proqnozu və numerologiya platforması.",
   keywords: "tarot, yuxu yozma, bürc, numerologiya, fal, astrologiya, azerbaycan",
+  icons: {
+    icon: "/logo.svg",
+    apple: "/logo.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

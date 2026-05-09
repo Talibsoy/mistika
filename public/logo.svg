@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a0a2e"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </radialGradient>
+    <radialGradient id="eyeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#d4af37" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#d4af37" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="irisGrad" cx="40%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#b8860b"/>
+      <stop offset="50%" stop-color="#6b3fa0"/>
+      <stop offset="100%" stop-color="#1a0a2e"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="96" fill="url(#bgGrad)" stroke="#d4af37" stroke-width="1.5" opacity="0.9"/>
+
+  <!-- Outer decorative ring -->
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#d4af37" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- Triangle (pyramid) -->
+  <polygon points="100,28 152,112 48,112" fill="none" stroke="#d4af37" stroke-width="1.5" filter="url(#softGlow)" opacity="0.9"/>
+
+  <!-- Inner triangle glow -->
+  <polygon points="100,34 147,108 53,108" fill="#d4af37" opacity="0.04"/>
+
+  <!-- Eye socket glow -->
+  <ellipse cx="100" cy="78" rx="28" ry="14" fill="url(#eyeGlow)"/>
+
+  <!-- Eye white -->
+  <path d="M72,78 Q100,56 128,78 Q100,100 72,78 Z" fill="#f5f0e8"/>
+
+  <!-- Iris -->
+  <circle cx="100" cy="78" r="13" fill="url(#irisGrad)"/>
+
+  <!-- Iris ring -->
+  <circle cx="100" cy="78" r="13" fill="none" stroke="#d4af37" stroke-width="0.8" opacity="0.6"/>
+
+  <!-- Pupil -->
+  <circle cx="100" cy="78" r="6" fill="#0a0010"/>
+
+  <!-- Eye highlight -->
+  <circle cx="96" cy="74" r="2.5" fill="white" opacity="0.8"/>
+  <circle cx="104" cy="80" r="1.2" fill="white" opacity="0.4"/>
+
+  <!-- Eye outline -->
+  <path d="M72,78 Q100,56 128,78 Q100,100 72,78 Z" fill="none" stroke="#d4af37" stroke-width="1.2" filter="url(#softGlow)"/>
+
+  <!-- Eyelashes top -->
+  <line x1="100" y1="64" x2="100" y2="58" stroke="#d4af37" stroke-width="0.8" opacity="0.6"/>
+  <line x1="88" y1="66" x2="85" y2="61" stroke="#d4af37" stroke-width="0.8" opacity="0.6"/>
+  <line x1="112" y1="66" x2="115" y2="61" stroke="#d4af37" stroke-width="0.8" opacity="0.6"/>
+
+  <!-- Horizontal line below triangle -->
+  <line x1="48" y1="112" x2="152" y2="112" stroke="#d4af37" stroke-width="1" opacity="0.5"/>
+
+  <!-- Decorative dots on line -->
+  <circle cx="48" cy="112" r="2" fill="#d4af37" opacity="0.8"/>
+  <circle cx="152" cy="112" r="2" fill="#d4af37" opacity="0.8"/>
+  <circle cx="100" cy="112" r="1.5" fill="#d4af37" opacity="0.6"/>
+
+  <!-- MISTIK text -->
+  <text x="100" y="135" text-anchor="middle" font-family="Georgia, serif" font-size="18" font-weight="700" letter-spacing="6" fill="#d4af37" filter="url(#softGlow)">MİSTİK</text>
+
+  <!-- Subtitle -->
+  <text x="100" y="150" text-anchor="middle" font-family="Georgia, serif" font-size="7" letter-spacing="3" fill="#d4af37" opacity="0.6">✦ KAHİN ✦</text>
+
+  <!-- Corner stars -->
+  <g filter="url(#glow)" opacity="0.7">
+    <!-- Top left -->
+    <polygon points="35,45 37,40 39,45 44,47 39,49 37,54 35,49 30,47" fill="#d4af37" transform="scale(0.7) translate(15,15)"/>
+    <!-- Top right -->
+    <polygon points="155,45 157,40 159,45 164,47 159,49 157,54 155,49 150,47" fill="#d4af37" transform="scale(0.7) translate(-38,15)"/>
+  </g>
+
+  <!-- Small stars scattered -->
+  <circle cx="38" cy="55" r="1" fill="#d4af37" opacity="0.6"/>
+  <circle cx="162" cy="50" r="1.2" fill="#d4af37" opacity="0.7"/>
+  <circle cx="45" cy="145" r="0.8" fill="#d4af37" opacity="0.5"/>
+  <circle cx="158" cy="140" r="1" fill="#d4af37" opacity="0.5"/>
+  <circle cx="30" cy="100" r="0.8" fill="#d4af37" opacity="0.4"/>
+  <circle cx="170" cy="95" r="0.8" fill="#d4af37" opacity="0.4"/>
+
+  <!-- Crescent moon top -->
+  <path d="M90,18 Q100,10 110,18 Q103,14 96,16 Q93,17 90,18 Z" fill="#d4af37" opacity="0.7"/>
+
+  <!-- Bottom ornament -->
+  <path d="M75,162 Q100,170 125,162" fill="none" stroke="#d4af37" stroke-width="0.8" opacity="0.4"/>
+  <circle cx="100" cy="168" r="2" fill="#d4af37" opacity="0.5"/>
+  <circle cx="75" cy="162" r="1.5" fill="#d4af37" opacity="0.4"/>
+  <circle cx="125" cy="162" r="1.5" fill="#d4af37" opacity="0.4"/>
+</svg>
