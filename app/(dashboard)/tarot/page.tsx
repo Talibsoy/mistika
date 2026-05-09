@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { TAROT_CARDS } from "@/lib/gemini-data";
 import ResultCard from "@/components/mystical/ResultCard";
 
@@ -74,36 +74,35 @@ export default function TarotPage() {
         ))}
       </div>
 
-      {/* Tooltip */}
-      <AnimatePresence>
-        {hoveredData && (
-          <motion.div
-            key={hoveredData.name}
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: 0.2 }}
-            style={{
-              background: "#161616",
-              border: "1px solid rgba(212,175,55,0.3)",
-              borderRadius: 12,
-              padding: "14px 18px",
-              marginBottom: 16,
-              display: "flex", alignItems: "flex-start", gap: 12,
-            }}
-          >
-            <div style={{ fontSize: 20, flexShrink: 0, marginTop: 1 }}>✦</div>
-            <div>
+      {/* Sabit məna paneli */}
+      <div style={{
+        background: "#111",
+        border: `1px solid ${hoveredData ? "rgba(212,175,55,0.3)" : "#1a1a1a"}`,
+        borderRadius: 12,
+        padding: "14px 18px",
+        marginBottom: 16,
+        display: "flex", alignItems: "flex-start", gap: 12,
+        minHeight: 64,
+        transition: "border-color 0.3s",
+      }}>
+        <div style={{ fontSize: 18, flexShrink: 0, marginTop: 2, color: hoveredData ? "#d4af37" : "#333", transition: "color 0.3s" }}>✦</div>
+        <div>
+          {hoveredData ? (
+            <>
               <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 14, fontWeight: 700, color: "#d4af37", marginBottom: 4 }}>
                 {hoveredData.name}
               </div>
               <div style={{ fontSize: 13, color: "#999", lineHeight: 1.6 }}>
                 {hoveredData.meaning}
               </div>
+            </>
+          ) : (
+            <div style={{ fontSize: 13, color: "#333", lineHeight: 1.6, marginTop: 4 }}>
+              Kartın üzərinə gəlin — mənası burada görünəcək
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </div>
+      </div>
 
       {/* Card grid */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(130px, 1fr))", gap: 12, marginBottom: 28 }}>
