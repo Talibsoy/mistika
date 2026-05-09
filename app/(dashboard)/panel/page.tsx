@@ -1,43 +1,72 @@
-"use client";
-import Link from "next/link";
+import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { getDailyEnergy } from "@/lib/gemini-data";
+import GreetingHeader from "@/components/mystical/GreetingHeader";
+import DailyEnergyCard from "@/components/mystical/DailyEnergyCard";
+import ServiceCards from "@/components/mystical/ServiceCards";
+import RecentReadings from "@/components/mystical/RecentReadings";
+import TrialBanner from "@/components/mystical/TrialBanner";
 
-const cards = [
-  { href: "/tarot", icon: "🔮", title: "Tarot Fal", desc: "Kartların sirrini kəşf et" },
-  { href: "/yuxu", icon: "🌙", title: "Yuxu Yozma", desc: "Yuxunun mənasını öyrən" },
-  { href: "/burc", icon: "⭐", title: "Bürc", desc: "Ulduzların mesajını al" },
-  { href: "/numerologiya", icon: "🔢", title: "Numerologiya", desc: "Rəqəmlərin gücünü hiss et" },
-];
+export default async function PanelPage() {
+  const session = await auth();
+  const userId = session?.user?.id;
 
-export default function PanelPage() {
+  const [recentReadingsRaw, subscription] = await Promise.all([
+    userId
+      ? prisma.reading.findMany({
+          where: { userId },
+          orderBy: { createdAt: "desc" },
+          take: 3,
+          select: { id: true, type: true, input: true, result: true, createdAt: true },
+        })
+      : [],
+    userId
+      ? prisma.subscription.findUnique({
+          where: { userId },
+          select: { status: true, trialEnd: true },
+        })
+      : null,
+  ]);
+
+  const readings = recentReadingsRaw.map((r) => ({
+    ...r,
+    createdAt: r.createdAt.toISOString(),
+  }));
+
+  const trialDaysLeft = subscription?.trialEnd
+    ? Math.max(0, Math.ceil((new Date(subscription.trialEnd).getTime() - Date.now()) / 86400000))
+    : 0;
+
+  const dailyEnergy = getDailyEnergy();
+  const userName = session?.user?.name ?? "Ruhlar";
+
   return (
     <div style={{ maxWidth: 900, margin: "0 auto" }}>
-      <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(22px, 5vw, 32px)", fontWeight: 700, color: "#f5f5f5", marginBottom: 8 }}>
-        Xoş gəldin ✦
-      </h1>
-      <p style={{ color: "#888", marginBottom: 40 }}>Hansı mistik yolculuğa başlamaq istəyirsən?</p>
+      <GreetingHeader name={userName} />
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 20 }}>
-        {cards.map((c) => (
-          <Link key={c.href} href={c.href} style={{ textDecoration: "none" }}>
-            <div style={{
-              background: "#111",
-              border: "1px solid #222",
-              borderRadius: 16,
-              padding: 24,
-              cursor: "pointer",
-              transition: "all 0.3s",
-            }}
-              onMouseEnter={e => { (e.currentTarget.style.borderColor = "#d4af37"); (e.currentTarget.style.boxShadow = "0 0 20px rgba(212,175,55,0.1)"); }}
-              onMouseLeave={e => { (e.currentTarget.style.borderColor = "#222"); (e.currentTarget.style.boxShadow = "none"); }}>
-              <div style={{ fontSize: 36, marginBottom: 12 }}>{c.icon}</div>
-              <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 600, color: "#f5f5f5", marginBottom: 6 }}>{c.title}</h3>
-              <p style={{ color: "#888", fontSize: 13 }}>{c.desc}</p>
-            </div>
-          </Link>
-        ))}
+      {subscription?.status === "trialing" && trialDaysLeft > 0 && (
+        <div style={{ marginTop: 28 }}>
+          <TrialBanner trialDaysLeft={trialDaysLeft} />
+        </div>
+      )}
+
+      <DailyEnergyCard energy={dailyEnergy} />
+
+      <div style={{ margin: "40px 0 16px", fontSize: 11, color: "#444", letterSpacing: 3, textTransform: "uppercase" }}>
+        ✦ Mistik Xidmətlər
       </div>
+      <ServiceCards />
 
+      {readings.length > 0 && (
+        <>
+          <div style={{ margin: "40px 0 16px", fontSize: 11, color: "#444", letterSpacing: 3, textTransform: "uppercase" }}>
+            ✦ Son Oxumalar
+          </div>
+          <RecentReadings readings={readings} />
+        </>
+      )}
 
+      <div style={{ height: 40 }} />
     </div>
   );
 }
